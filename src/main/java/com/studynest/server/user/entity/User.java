@@ -65,6 +65,13 @@ public class User {
         return new User(fullName, email, passwordHash, UserRole.STUDENT, UserStatus.ACTIVE);
     }
 
+    public void promoteToTeacher() {
+        if (roleCode != UserRole.STUDENT || status != UserStatus.ACTIVE) {
+            throw new IllegalStateException("Only an active student can become a teacher");
+        }
+        roleCode = UserRole.TEACHER;
+    }
+
     @PrePersist
     void onCreate() {
         Instant now = Instant.now();
